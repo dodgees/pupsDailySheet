@@ -5,39 +5,37 @@ import java.time.LocalDateTime;
 import com.mindcanary.domain.user.User;
 
 public class Challenge {
-	
+
 	private long id;
 
 	private User toUser;
-	
+
 	private User fromUser;
-	
-	private LocalDateTime issuedDate;
-	
+
+	private LocalDateTime createdDateTime;
+
 	private String title;
-	
+
 	private String category;
 
-	public Challenge(long id, User toUser, User fromUser, LocalDateTime issuedDate, String title, String category) {
+	public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String title,
+			String category) {
 		super();
 		this.id = id;
 		this.toUser = toUser;
 		this.fromUser = fromUser;
-		this.issuedDate = issuedDate;
+		this.createdDateTime = createdDateTime;
 		this.title = title;
 		this.category = category;
 	}
-	
 
 	public long getId() {
 		return id;
 	}
 
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public User getToUser() {
 		return toUser;
@@ -55,12 +53,12 @@ public class Challenge {
 		this.fromUser = fromUser;
 	}
 
-	public LocalDateTime getIssuedDate() {
-		return issuedDate;
+	public LocalDateTime getCreatedDateTime() {
+		return createdDateTime;
 	}
 
-	public void setIssuedDate(LocalDateTime issuedDate) {
-		this.issuedDate = issuedDate;
+	public void setCreatedDateTime(LocalDateTime createdDateTime) {
+		this.createdDateTime = createdDateTime;
 	}
 
 	public String getTitle() {
@@ -78,5 +76,5 @@ public class Challenge {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 }

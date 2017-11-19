@@ -1,14 +1,16 @@
 package com.mindcanary.infrastructure;
 
+import java.time.LocalDateTime;
+
 public class Persisted {
 
 	private Long id;
 
-	private Long insertTime;
+	private LocalDateTime createdTimestamp;
 
-	private Long updateTime;
+	private Long createdBy;
 
-	private Long insertBy;
+	private Long updateTimestamp;
 
 	private Long updateBy;
 
@@ -20,28 +22,28 @@ public class Persisted {
 		this.id = id;
 	}
 
-	public Long getInsertTime() {
-		return insertTime;
+	public LocalDateTime getCreatedTimestamp() {
+		return createdTimestamp;
 	}
 
-	public void setInsertTime(Long insertTime) {
-		this.insertTime = insertTime;
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
 	}
 
-	public Long getUpdateTime() {
-		return updateTime;
+	public Long getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setUpdateTime(Long updateTime) {
-		this.updateTime = updateTime;
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public Long getInsertBy() {
-		return insertBy;
+	public Long getUpdateTimestamp() {
+		return updateTimestamp;
 	}
 
-	public void setInsertBy(Long insertBy) {
-		this.insertBy = insertBy;
+	public void setUpdateTimestamp(Long updateTimestamp) {
+		this.updateTimestamp = updateTimestamp;
 	}
 
 	public Long getUpdateBy() {
