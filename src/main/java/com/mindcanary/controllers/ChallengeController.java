@@ -23,7 +23,7 @@ public class ChallengeController {
 	@Inject
 	private ChallengeDomainService challengeDomainService;
 
-	@RequestMapping(value = "/challenges/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<Challenge> getFakeChallenges() {
 		User levi = new User(1,"Levi", "Liester");
 		User mike = new User(2,"Mike", "Bumgarder");
