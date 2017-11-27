@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestScope;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
 import com.mindcanary.domain.ClientId;
 import com.mindcanary.domain.authentication.AuthenticationDomainServiceImpl;
 import com.mindcanary.domain.client.ClientIdDomainService;
+import com.mindcanary.infrastructure.RequestScopedData;
 
 @Named
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
@@ -20,52 +24,18 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(AuthenticationInterceptor.class);
 
 	@Inject
-	private AuthenticationDomainServiceImpl authenticationDomainService;
-
-	@Inject
-	private ClientIdDomainService clientIdDomainService;
-
+	private RequestScopedData requestScopedData;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		if (request.getMethod().equals("OPTIONS")) {
-			return true;
-		}
-		String clientId = request.getHeader("Client-Id");
-
-		logger.info("Client-ID: " + clientId + " for endpoint:" + request.getRequestURL());
-		if (clientId != null && !clientId.isEmpty()) {
-			boolean isValidClient = authenticationDomainService.isValidClient(clientId);
-			validateRoleAndUrl(request);
-			return isValidClient;
-		}
-		// JOE - change this to return false to turn on client authentication
+		String idToken = request.getHeader("Firebase-Auth");
+		logger.info("ID Token: " + idToken + " for endpoint:" + request.getRequestURL());
+		FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
+		String uid = decodedToken.getUid();
+		logger.info("UID: " + uid);
+		requestScopedData.setUid(uid);
 		return true;
-	}
-
-	private void validateRoleAndUrl(HttpServletRequest request) {
-		String clientId = request.getHeader("Client-Id");
-		ClientId fullClientId = clientIdDomainService.getByClientId(clientId);
-		if (fullClientId.getRole() != 1 && request.getRequestURI().startsWith("/clients")) {
-			throw new RuntimeException("You do not have access to see client Ids");
-		}
-
-	}
-
-	private String getCookieValueByName(String name, Cookie[] cookies) {
-		if (cookies == null) {
-			logger.info("No Cookies Available.");
-			return null;
-		}
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals(name)) {
-				logger.info("Found ClientId: " + cookie.getValue());
-				return cookie.getValue();
-			}
-		}
-		logger.info("Cookie: " + name + "-not found.");
-		return null;
-
 	}
 
 }

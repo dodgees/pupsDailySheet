@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class GlobalExceptionHandler {
 
 	private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
+	
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody ServiceError handleException(Exception exception) {
 		
-		String finalMessage = "An exception has occured. Please try again. If the problem persists contact your ATS Customer Service Representative.";
+		String finalMessage = exception.getMessage();
 		
 		return new ServiceError("error", finalMessage);
 	}

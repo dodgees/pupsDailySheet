@@ -16,6 +16,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// Uncomment to require all request to be validated by interceptor
 		// before application access is granted
-		// registry.addInterceptor(authenticationInterceptor).excludePathPatterns("/trucks/ids").excludePathPatterns("/trucks/location");
+		 registry.addInterceptor(authenticationInterceptor);
 	}
 }
