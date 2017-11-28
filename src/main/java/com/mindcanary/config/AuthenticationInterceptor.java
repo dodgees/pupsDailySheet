@@ -1,5 +1,7 @@
 package com.mindcanary.config;
 
+import java.util.concurrent.ExecutionException;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
@@ -16,6 +18,7 @@ import com.google.firebase.auth.FirebaseToken;
 import com.mindcanary.domain.ClientId;
 import com.mindcanary.domain.authentication.AuthenticationDomainServiceImpl;
 import com.mindcanary.domain.client.ClientIdDomainService;
+import com.mindcanary.exceptions.AuthenticationException;
 import com.mindcanary.infrastructure.RequestScopedData;
 
 @Named
@@ -27,18 +30,22 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	private RequestScopedData requestScopedData;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		if (request.getMethod().equals("OPTIONS")) {
 			return true;
 		}
 		String idToken = request.getHeader("Firebase-Auth");
 		logger.info("ID Token: " + idToken + " for endpoint:" + request.getRequestURL());
-		FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
-		String uid = decodedToken.getUid();
-		logger.info("UID: " + uid);
-		requestScopedData.setUid(uid);
-		return true;
+		FirebaseToken decodedToken;
+		try {
+			decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
+			String uid = decodedToken.getUid();
+			logger.info("UID: " + uid);
+			requestScopedData.setUid(uid);
+			return true;
+		} catch (InterruptedException | ExecutionException e) {
+			throw new AuthenticationException(e.getMessage());
+		}
 	}
 
 }
