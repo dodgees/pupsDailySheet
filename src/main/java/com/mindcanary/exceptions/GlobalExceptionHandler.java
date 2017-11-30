@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
 	public @ResponseBody ServiceError handleException(Exception exception) {
 		
 		String finalMessage = exception.getMessage();
+		logger.error(finalMessage);
 		exception.printStackTrace();
 		return new ServiceError("error", finalMessage);
 	}

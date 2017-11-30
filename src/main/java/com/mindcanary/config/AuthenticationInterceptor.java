@@ -4,20 +4,15 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.RequestScope;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import com.mindcanary.domain.ClientId;
-import com.mindcanary.domain.authentication.AuthenticationDomainServiceImpl;
-import com.mindcanary.domain.client.ClientIdDomainService;
 import com.mindcanary.exceptions.AuthenticationException;
 import com.mindcanary.infrastructure.RequestScopedData;
 

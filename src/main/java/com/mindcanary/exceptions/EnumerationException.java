@@ -8,7 +8,7 @@ public class EnumerationException extends RuntimeException {
 		super("Failed to convert Enumeration");
 	}
 
-	public EnumerationException(String message, Class enumerationClass) {
+	public EnumerationException(String message, Class<RuntimeException> enumerationClass) {
 		super(message + ":" + enumerationClass.getName());
 	}
 
@@ -16,8 +16,8 @@ public class EnumerationException extends RuntimeException {
 		super("Failed to conver Enumeration for class: " + className + " | id: " + id);
 	}
 
-	public EnumerationException(String value, String className) {
-		super("Failed to conver Enumeration for class: " + className + " | value: " + value);
+	public EnumerationException(String name, String className) {
+		super("Failed to conver Enumeration for class: " + className + " | name: " + name);
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.mindcanary.domain.challenge.AnswerType;
 import com.mindcanary.domain.challenge.Challenge;
 import com.mindcanary.domain.user.User;
 
@@ -26,7 +27,7 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 				User toUser = new User(rs.getLong("toUserId"), null , null);
 				User fromUser = new User(rs.getLong("fromUserId"), null , null);
 				LocalDateTime createdDateTime = rs.getTimestamp("created_timestamp").toLocalDateTime();
-				Challenge p = new Challenge(rs.getInt("id"),toUser, fromUser, createdDateTime, rs.getString("title"), rs.getString("category"));
+				Challenge p = new Challenge(rs.getInt("id"),toUser, fromUser, createdDateTime, rs.getString("title"), rs.getString("category"),"Awesome Description", AnswerType.MULTIPLE_CHOICE);
 			    return p;
 			});
 	}
