@@ -5,4 +5,6 @@ import java.util.List;
 public interface ChallengeDomainService {
 
 	List<Challenge> getAllChallenges();
+
+	List<Challenge> saveChallenges(List<Challenge> challenges);
 }

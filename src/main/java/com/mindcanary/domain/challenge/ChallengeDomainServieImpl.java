@@ -19,4 +19,10 @@ public class ChallengeDomainServieImpl implements ChallengeDomainService {
 		return challenges;
 	}
 
+	@Override
+	public List<Challenge> saveChallenges(List<Challenge> challenges) {
+		List<Challenge> savedChallenges = challengeDaoService.saveChallenges(challenges);
+		return savedChallenges;
+	}
+
 }

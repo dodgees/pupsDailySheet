@@ -8,4 +8,6 @@ public interface ChallengeDaoService {
 
 	List<Challenge> getAllChallenges();
 
+	List<Challenge> saveChallenges(List<Challenge> challenges);
+
 }

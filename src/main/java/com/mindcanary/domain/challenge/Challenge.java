@@ -21,12 +21,14 @@ public class Challenge {
 	private String description;
 
 	private AnswerType answerType;
-	
+
+	private StatusType statusType;
+
 	public Challenge() {
 	}
 
 	public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String title, String category,
-			String description, AnswerType answerType) {
+			String description, AnswerType answerType, StatusType statusType) {
 		super();
 		this.id = id;
 		this.toUser = toUser;
@@ -36,6 +38,7 @@ public class Challenge {
 		this.category = category;
 		this.description = description;
 		this.answerType = answerType;
+		this.statusType = statusType;
 	}
 
 	public Challenge(String title, String category) {
@@ -106,6 +109,14 @@ public class Challenge {
 
 	public void setAnswerType(AnswerType answerType) {
 		this.answerType = answerType;
+	}
+
+	public StatusType getStatusType() {
+		return statusType;
+	}
+
+	public void setStatusType(StatusType statusType) {
+		this.statusType = statusType;
 	}
 
 }
