@@ -29,8 +29,8 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 		String sql = "SELECT * from challenges";
 
 		return namedParameterJdbcTemplate.query(sql, (rs, rowNum) -> {
-			User toUser = new User(rs.getLong("to_user_id"), null, null);
-			User fromUser = new User(rs.getLong("from_user_id"), null, null);
+			User toUser = new User(rs.getLong("to_user_id"), null, null, null);
+			User fromUser = new User(rs.getLong("from_user_id"), null, null, null);
 			LocalDateTime createdDateTime = rs.getTimestamp("created_timestamp").toLocalDateTime();
 			Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, createdDateTime,
 					rs.getString("title"), rs.getString("category"), "Awesome Description", AnswerType.MULTIPLE_CHOICE,
@@ -55,6 +55,8 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 		String sql = "INSERT INTO challenges(from_user_id, to_user_id, title, description, answer, answer_type, status_type, created_timestamp, created_by, category)"
 				+ "	VALUES (:from_user_id,:to_user_id,:title, :description, :answer, :answer_type, :status_type, :created_timestamp, :created_by, :category );";
 		namedParameterJdbcTemplate.batchUpdate(sql, batchValues.toArray(new Map[challenges.size()]));
+		// I'm hoping there is a better way than this, but its what I've seen in the
+		// past and currently works.
 		return null;
 	}
 

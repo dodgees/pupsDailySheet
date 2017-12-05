@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindcanary.domain.challenge.Challenge;
 import com.mindcanary.domain.challenge.ChallengeDomainService;
 import com.mindcanary.domain.challenge.StatusType;
+import com.mindcanary.domain.user.User;
+import com.mindcanary.infrastructure.RequestScopedData;
 
 @RestController
 @RequestMapping("/challenges")
 public class ChallengeController {
+
+	@Inject
+	private RequestScopedData requestScopedData;
 
 	@Inject
 	private ChallengeDomainService challengeDomainService;
@@ -33,6 +38,8 @@ public class ChallengeController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<Challenge> createChallenge(@RequestBody Challenge challenge) {
 		// set created time on server so it can't be manipulated.
+		User user = new User(requestScopedData.getUid());
+		challenge.setFromUser(user);
 		challenge.setCreatedDateTime(LocalDateTime.now());
 		challenge.setStatusType(StatusType.ASKED);
 		challenge.setCategory("Magic");
