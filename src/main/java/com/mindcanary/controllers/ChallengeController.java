@@ -42,7 +42,6 @@ public class ChallengeController {
 		challenge.setFromUser(user);
 		challenge.setCreatedDateTime(LocalDateTime.now());
 		challenge.setStatusType(StatusType.ASKED);
-		challenge.setCategory("Magic");
 		List<Challenge> savedChallenges = challengeDomainService.saveChallenges(Arrays.asList(challenge));
 		return savedChallenges;
 	}

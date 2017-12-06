@@ -1,6 +1,7 @@
 package com.mindcanary.domain.challenge;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.mindcanary.domain.user.User;
 
@@ -24,11 +25,13 @@ public class Challenge {
 
 	private StatusType statusType;
 
+	private List<String> answerBank;
+
 	public Challenge() {
 	}
 
 	public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String title, String category,
-			String description, AnswerType answerType, StatusType statusType) {
+			String description, AnswerType answerType, StatusType statusType, List<String> answerBank) {
 		super();
 		this.id = id;
 		this.toUser = toUser;
@@ -39,6 +42,7 @@ public class Challenge {
 		this.description = description;
 		this.answerType = answerType;
 		this.statusType = statusType;
+		this.answerBank = answerBank;
 	}
 
 	public Challenge(String title, String category) {
@@ -117,6 +121,14 @@ public class Challenge {
 
 	public void setStatusType(StatusType statusType) {
 		this.statusType = statusType;
+	}
+
+	public List<String> getAnswerBank() {
+		return answerBank;
+	}
+
+	public void setAnswerBank(List<String> answerBank) {
+		this.answerBank = answerBank;
 	}
 
 }

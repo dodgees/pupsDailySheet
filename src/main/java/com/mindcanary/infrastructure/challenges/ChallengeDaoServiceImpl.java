@@ -34,7 +34,7 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 			LocalDateTime createdDateTime = rs.getTimestamp("created_timestamp").toLocalDateTime();
 			Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, createdDateTime,
 					rs.getString("title"), rs.getString("category"), "Awesome Description", AnswerType.MULTIPLE_CHOICE,
-					StatusType.ASKED);
+					StatusType.ASKED, null);
 			return challenge;
 		});
 	}
