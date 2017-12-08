@@ -1,4 +1,4 @@
-package com.mindcanary.domain.challenge;
+package com.mindcanary.domain.answer;
 
 import com.mindcanary.exceptions.EnumerationException;
 

@@ -10,4 +10,8 @@ public interface ChallengeDaoService {
 
 	List<Challenge> saveChallenges(List<Challenge> challenges);
 
+	Challenge saveChallenge(Challenge challenge);
+
+	List<String> saveAnswerBank(List<String> answerBankItems);
+
 }

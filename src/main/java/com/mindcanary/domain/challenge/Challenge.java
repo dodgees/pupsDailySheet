@@ -3,6 +3,8 @@ package com.mindcanary.domain.challenge;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.mindcanary.domain.answer.Answer;
+import com.mindcanary.domain.answer.AnswerType;
 import com.mindcanary.domain.user.User;
 
 public class Challenge {
@@ -19,19 +21,19 @@ public class Challenge {
 
 	private String category;
 
-	private String description;
+	private String question;
 
 	private AnswerType answerType;
 
 	private StatusType statusType;
 
-	private List<String> answerBank;
+	private List<Answer> answerBank;
 
 	public Challenge() {
 	}
 
 	public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String title, String category,
-			String description, AnswerType answerType, StatusType statusType, List<String> answerBank) {
+			String question, AnswerType answerType, StatusType statusType, List<Answer> answerBank) {
 		super();
 		this.id = id;
 		this.toUser = toUser;
@@ -39,7 +41,7 @@ public class Challenge {
 		this.createdDateTime = createdDateTime;
 		this.title = title;
 		this.category = category;
-		this.description = description;
+		this.question = question;
 		this.answerType = answerType;
 		this.statusType = statusType;
 		this.answerBank = answerBank;
@@ -99,12 +101,12 @@ public class Challenge {
 		this.category = category;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getQuestion() {
+		return question;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
 	public AnswerType getAnswerType() {
@@ -123,11 +125,11 @@ public class Challenge {
 		this.statusType = statusType;
 	}
 
-	public List<String> getAnswerBank() {
+	public List<Answer> getAnswerBank() {
 		return answerBank;
 	}
 
-	public void setAnswerBank(List<String> answerBank) {
+	public void setAnswerBank(List<Answer> answerBank) {
 		this.answerBank = answerBank;
 	}
 
