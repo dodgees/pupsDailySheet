@@ -21,12 +21,16 @@ public class UserController {
 
 	@RequestMapping(value = "/{firebase_uuid}/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody User createUser(@PathVariable("firebase_uuid") String firebaseUuid) {
+		User foundUser = userDomainService.getByUuid(firebaseUuid);
+		if (foundUser == null) { // not sure this is the best approach - Levi
+			return null;
+		}
 		User userToCreate = new User(firebaseUuid);
 		User createdUser = userDomainService.create(userToCreate);
 		return createdUser;
 	}
 
-	@RequestMapping(value = "/{firebase_uuid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/{firebase_uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody User getUser(@PathVariable("firebase_uuid") String firebaseUuid) {
 		User user = userDomainService.getByUuid(firebaseUuid);
 		return user;

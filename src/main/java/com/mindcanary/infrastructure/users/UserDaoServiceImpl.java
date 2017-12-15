@@ -1,5 +1,6 @@
 package com.mindcanary.infrastructure.users;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,7 +31,7 @@ public class UserDaoServiceImpl implements UserDaoService {
 		params.addValue("firebase_uuid", user.getFirebaseUuid());
 		params.addValue("bio", user.getBio());
 
-		String sql = "INSERT INTO public.users( first_name, last_name, nickname, user_name, email, challenge_coins, firebase_uuid, bio) "
+		String sql = "INSERT INTO users( first_name, last_name, nickname, user_name, email, challenge_coins, firebase_uuid, bio) "
 				+ "VALUES (:first_name, :last_name, :nickname, :user_name, :email, :challenge_coins, :firebase_uuid, :bio)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -42,14 +43,40 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	@Override
 	public User getByUuid(String uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		MapSqlParameterSource params = new MapSqlParameterSource("uuid", uuid);
+		String sql = "Select * from users where firebase_uuid = :uuid";
+		User user = namedParameterJdbcTemplate.queryForObject(sql, params, (rs, rowNum) -> {
+			long id = rs.getLong("id");
+			String firstName = rs.getString("first_name");
+			String lastName = rs.getString("last_name");
+			String nickName = rs.getString("nickname");
+			String userName = rs.getString("user_name");
+			String email = rs.getString("email");
+			long challengeCoins = rs.getLong("challenge_coins");
+			String firebaseUuid = rs.getString("firebase_uuid");
+			String bio = rs.getString("bio");
+			User foundUser = new User(firebaseUuid);
+			foundUser.setId(id);
+			foundUser.setFirstName(firstName);
+			foundUser.setLastName(lastName);
+			foundUser.setNickName(nickName);
+			foundUser.setUserName(userName);
+			foundUser.setEmail(email);
+			foundUser.setChallengeCoins(challengeCoins);
+			foundUser.setBio(bio);
+			return foundUser;
+		});
+		return user;
 	}
 
 	@Override
 	public List<User> getByUuid(List<String> uuids) {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users = new ArrayList<>();
+		for (String uuid : uuids) {
+			User user = getByUuid(uuid);
+			users.add(user);
+		}
+		return users;
 	}
 
 }
