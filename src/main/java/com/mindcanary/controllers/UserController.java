@@ -22,8 +22,8 @@ public class UserController {
 	@RequestMapping(value = "/{firebase_uuid}/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody User createUser(@PathVariable("firebase_uuid") String firebaseUuid) {
 		User foundUser = userDomainService.getByUuid(firebaseUuid);
-		if (foundUser == null) { // not sure this is the best approach - Levi
-			return null;
+		if (foundUser != null) { // not sure this is the best approach - Levi
+			return foundUser;
 		}
 		User userToCreate = new User(firebaseUuid);
 		User createdUser = userDomainService.create(userToCreate);
