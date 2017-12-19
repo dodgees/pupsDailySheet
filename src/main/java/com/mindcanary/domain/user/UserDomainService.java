@@ -10,4 +10,5 @@ public interface UserDomainService {
 
 	List<User> getByUuid(List<String> uuids);
 
+    List<UserSearch> searchByName(String searchString);
 }
