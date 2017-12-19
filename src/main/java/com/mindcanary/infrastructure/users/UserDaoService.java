@@ -3,6 +3,7 @@ package com.mindcanary.infrastructure.users;
 import java.util.List;
 
 import com.mindcanary.domain.user.User;
+import com.mindcanary.domain.user.UserSearch;
 
 public interface UserDaoService {
 
@@ -12,4 +13,5 @@ public interface UserDaoService {
 
 	List<User> getByUuid(List<String> uuids);
 
+    List<UserSearch> searchByName(String searchText);
 }

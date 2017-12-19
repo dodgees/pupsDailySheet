@@ -36,4 +36,9 @@ public class UserDomainServiceImpl implements UserDomainService {
 		return users;
 	}
 
+	@Override
+	public List<UserSearch> searchByName(String searchString) {
+		return userDaoService.searchByName(searchString);
+	}
+
 }
