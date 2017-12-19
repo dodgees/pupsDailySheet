@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 import com.mindcanary.domain.user.UserSearch;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindcanary.domain.user.User;
 import com.mindcanary.domain.user.UserDomainService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,13 +25,15 @@ public class UserController {
 
 	@RequestMapping(value = "/{firebase_uuid}/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody User createUser(@PathVariable("firebase_uuid") String firebaseUuid) {
-		User foundUser = userDomainService.getByUuid(firebaseUuid);
-		if (foundUser != null) { // not sure this is the best approach - Levi
+		// This logic is to create a user if one isn't found - Levi
+		try {
+			User foundUser = userDomainService.getByUuid(firebaseUuid);
 			return foundUser;
+		} catch (EmptyResultDataAccessException ex) {
+			User userToCreate = new User(firebaseUuid);
+			User createdUser = userDomainService.create(userToCreate);
+			return createdUser;
 		}
-		User userToCreate = new User(firebaseUuid);
-		User createdUser = userDomainService.create(userToCreate);
-		return createdUser;
 	}
 
 	@RequestMapping(value = "/{firebase_uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
