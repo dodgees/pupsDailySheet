@@ -34,7 +34,7 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 
 		String sql = "SELECT * from challenges";
 
-		return namedParameterJdbcTemplate.query(sql, (rs, rowNum) -> {
+		List<Challenge> challenges = namedParameterJdbcTemplate.query(sql, (rs, rowNum) -> {
 			User toUser = new User(rs.getString("to_user_id"));
 			User fromUser = new User(rs.getString("from_user_id"));
 			LocalDateTime createdDateTime = rs.getTimestamp("created_timestamp").toLocalDateTime();
@@ -43,6 +43,8 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 					StatusType.ASKED, null);
 			return challenge;
 		});
+
+		return challenges;
 	}
 
 	@Override
@@ -85,6 +87,24 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 	public List<String> saveAnswerBank(List<String> answerBankItems) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Challenge> getSentChallenges(String firebaseUuid) {
+		MapSqlParameterSource params = new MapSqlParameterSource("from_user_id", firebaseUuid);
+		String sql = "select * from challenges where from_user_id = :from_user_id";
+
+		List<Challenge> challenges = namedParameterJdbcTemplate.query(sql, params, (rs, rowNum) -> {
+			User toUser = new User(rs.getString("to_user_id"));
+			User fromUser = new User(rs.getString("from_user_id"));
+			Timestamp ts = rs.getTimestamp("created_timestamp");
+			Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, LocalDateTime.now(),
+					rs.getString("title"), rs.getString("category"), rs.getString("question"),
+					AnswerType.fromName(rs.getString("answer_type")), StatusType.fromName(rs.getString("status_type")),
+					null);
+			return challenge;
+		});
+		return challenges;
 	}
 
 }

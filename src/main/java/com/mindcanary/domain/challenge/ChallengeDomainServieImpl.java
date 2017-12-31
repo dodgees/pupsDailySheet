@@ -25,4 +25,10 @@ public class ChallengeDomainServieImpl implements ChallengeDomainService {
 		return savedChallenges;
 	}
 
+	@Override
+	public List<Challenge> getSentChallenges(String firebaseUuid) {
+		List<Challenge> challenges = challengeDaoService.getSentChallenges(firebaseUuid);
+		return challenges;
+	}
+
 }

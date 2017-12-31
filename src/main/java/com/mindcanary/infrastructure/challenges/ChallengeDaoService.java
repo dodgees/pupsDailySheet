@@ -14,4 +14,6 @@ public interface ChallengeDaoService {
 
 	List<String> saveAnswerBank(List<String> answerBankItems);
 
+	List<Challenge> getSentChallenges(String firebaseUuid);
+
 }

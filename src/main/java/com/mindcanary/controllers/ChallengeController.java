@@ -29,6 +29,13 @@ public class ChallengeController {
 	@Inject
 	private ChallengeDomainService challengeDomainService;
 
+	@RequestMapping(value = "/sent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<Challenge> getSentChallenges() {
+		String firebaseUuid = requestScopedData.getUid();
+		List<Challenge> challenges = challengeDomainService.getSentChallenges(firebaseUuid);
+		return challenges;
+	}
+
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<Challenge> getAllChallenges() {
 		List<Challenge> challenges = challengeDomainService.getAllChallenges();
