@@ -6,14 +6,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mindcanary.domain.user.UserSearch;
-import com.mindcanary.rowmappers.UserSearchRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import com.mindcanary.domain.user.User;
+import com.mindcanary.domain.user.UserSearch;
+import com.mindcanary.rowmappers.UserSearchRowMapper;
 
 @Named
 public class UserDaoServiceImpl implements UserDaoService {
@@ -83,9 +83,9 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	@Override
 	public List<UserSearch> searchByName(String searchText) {
-		MapSqlParameterSource params = new MapSqlParameterSource("searchText", searchText+'%');
-		String sql = "Select firebase_uuid, first_name, last_name from users " +
-				"where first_name like :searchText or last_name like :searchText";
+		MapSqlParameterSource params = new MapSqlParameterSource("searchText", searchText + '%');
+		String sql = "Select firebase_uuid, first_name, last_name from users "
+				+ "where LOWER(first_name) like LOWER(:searchText) or LOWER(last_name) like LOWER(:searchText)";
 		return namedParameterJdbcTemplate.query(sql, params, new UserSearchRowMapper());
 	}
 
