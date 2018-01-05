@@ -63,20 +63,20 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 
 	@Override
 	public Challenge saveChallenge(Challenge challenge) {
-		MapSqlParameterSource params = new MapSqlParameterSource("from_user_id", challenge.getFromUser().getUid())
-				.addValue("to_user_id", challenge.getFromUser().getUid()).addValue("title", challenge.getTitle())
-				.addValue("question", challenge.getQuestion())
-				.addValue("answer_type", challenge.getAnswerType().getName())
-				.addValue("status_type", challenge.getStatusType().getName())
-				.addValue("created_timestamp", Timestamp.valueOf(challenge.getCreatedDateTime()))
-				.addValue("created_by", 1).addValue("category", challenge.getCategory()).addValue("answer", "MAGIC");
-		String sql = "INSERT INTO challenges(from_user_id, to_user_id, title, question, answer, answer_type, status_type, created_timestamp, created_by, category)"
-				+ "	VALUES (:from_user_id,:to_user_id,:title, :question, :answer, :answer_type, :status_type, :created_timestamp, :created_by, :category );";
+		MapSqlParameterSource params = new MapSqlParameterSource("from_user_id",
+				challenge.getFromUser().getFirebaseUuid())
+						.addValue("to_user_id", challenge.getToUser().getFirebaseUuid())
+						.addValue("title", challenge.getTitle()).addValue("question", challenge.getQuestion())
+						.addValue("answer_type", challenge.getAnswerType().getName())
+						.addValue("status_type", challenge.getStatusType().getName())
+						.addValue("created_timestamp", Timestamp.valueOf(challenge.getCreatedDateTime()))
+						.addValue("created_by", challenge.getFromUser().getFirebaseUuid())
+						.addValue("category", challenge.getCategory()).addValue("answer", "MAGIC");
+		String sql = "INSERT INTO challenges(from_user_id, to_user_id, title, question, answer_type, status_type, created_timestamp, created_by, category)"
+				+ "	VALUES (:from_user_id,:to_user_id,:title, :question, :answer_type, :status_type, :created_timestamp, :created_by, :category );";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		namedParameterJdbcTemplate.update(sql, params, keyHolder);
 		long challengeId = Long.valueOf(keyHolder.getKeys().get("id").toString());
-
-		List<String> answerBank = null;
 
 		challenge.setId(challengeId);
 

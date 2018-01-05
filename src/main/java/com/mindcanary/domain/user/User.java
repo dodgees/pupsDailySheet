@@ -22,16 +22,19 @@ public class User {
 
 	private String bio;
 
+	public User() {
+		// Required for Jackson parsing
+	}
+
 	public User(String firebaseUuid) {
 		this.firebaseUuid = firebaseUuid;
 	}
 
-	public User(long id, String firstName, String lastName, String uid) {
+	public User(String firebaseUuid, String firstName, String lastName) {
 		super();
-		this.id = id;
+		this.firebaseUuid = firebaseUuid;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.uid = uid;
 	}
 
 	public long getId() {
