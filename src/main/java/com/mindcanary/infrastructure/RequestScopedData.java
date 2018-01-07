@@ -1,22 +1,21 @@
 package com.mindcanary.infrastructure;
 
-import javax.inject.Named;
-
+import com.google.firebase.auth.FirebaseToken;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+
+import javax.inject.Named;
 
 @Named
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RequestScopedData {
+    private FirebaseToken firebaseToken;
 
-	private String uid;
+    public FirebaseToken getFirebaseToken() {
+        return firebaseToken;
+    }
 
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
+    public void setFirebaseToken(FirebaseToken firebaseToken) {
+        this.firebaseToken = firebaseToken;
+    }
 }
