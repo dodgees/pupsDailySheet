@@ -32,8 +32,10 @@ public class UserController {
         } catch (EmptyResultDataAccessException ex) {
             FirebaseToken token = requestScopedData.getFirebaseToken();
             User userToCreate = new User();
-            userToCreate.setFirstName(token.getName().split(" ")[0]);
-            userToCreate.setLastName(token.getName().split(" ")[1]);
+            if (token.getName() != null) {
+                userToCreate.setFirstName(token.getName().split(" ")[0]);
+                userToCreate.setLastName(token.getName().split(" ")[1]);
+            }
             userToCreate.setEmail(token.getEmail());
             userToCreate.setFirebaseUuid(token.getUid());
             User createdUser = userDomainService.create(userToCreate);
