@@ -9,4 +9,6 @@ public interface ChallengeDomainService {
 	List<Challenge> saveChallenges(List<Challenge> challenges);
 
 	List<Challenge> getSentChallenges(String firebaseUuid);
+
+	List<Challenge> getReceivedChallenges(String firebaseUuid);
 }

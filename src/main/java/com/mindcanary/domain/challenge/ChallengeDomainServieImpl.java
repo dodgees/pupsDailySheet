@@ -1,11 +1,10 @@
 package com.mindcanary.domain.challenge;
 
-import java.util.List;
+import com.mindcanary.infrastructure.challenges.ChallengeDaoService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.mindcanary.infrastructure.challenges.ChallengeDaoService;
+import java.util.List;
 
 @Named
 public class ChallengeDomainServieImpl implements ChallengeDomainService {
@@ -28,6 +27,12 @@ public class ChallengeDomainServieImpl implements ChallengeDomainService {
 	@Override
 	public List<Challenge> getSentChallenges(String firebaseUuid) {
 		List<Challenge> challenges = challengeDaoService.getSentChallenges(firebaseUuid);
+		return challenges;
+	}
+
+	@Override
+	public List<Challenge> getReceivedChallenges(String firebaseUuid) {
+		List<Challenge> challenges = challengeDaoService.getReceivedChallenges(firebaseUuid);
 		return challenges;
 	}
 

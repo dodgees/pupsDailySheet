@@ -110,4 +110,22 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
         return challenges;
     }
 
+    @Override
+    public List<Challenge> getReceivedChallenges(String firebaseUuid) {
+        MapSqlParameterSource params = new MapSqlParameterSource("to_user_id", firebaseUuid);
+        String sql = "SELECT * FROM challenges WHERE to_user_id = :to_user_id";
+
+        List<Challenge> challenges = namedParameterJdbcTemplate.query(sql, params, (rs, rowNum) -> {
+            User toUser = userDaoService.getByUuid(rs.getString("to_user_id"));
+            User fromUser = userDaoService.getByUuid(rs.getString("from_user_id"));
+            Timestamp ts = rs.getTimestamp("created_timestamp");
+            Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, LocalDateTime.now(),
+                    rs.getString("title"), rs.getString("category"), rs.getString("question"),
+                    AnswerType.fromName(rs.getString("answer_type")), StatusType.fromName(rs.getString("status_type")),
+                    null);
+            return challenge;
+        });
+        return challenges;
+    }
+
 }

@@ -31,6 +31,14 @@ public class ChallengeController {
         return challenges;
     }
 
+    @RequestMapping(value = "/received", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+    public @ResponseBody
+    List<Challenge> getReceivedChallenges() {
+        String firebaseUuid = requestScopedData.getFirebaseToken().getUid();
+        List<Challenge> challenges = challengeDomainService.getReceivedChallenges(firebaseUuid);
+        return challenges;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
     List<Challenge> getAllChallenges() {

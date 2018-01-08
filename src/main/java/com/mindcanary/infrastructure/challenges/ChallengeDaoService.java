@@ -1,8 +1,8 @@
 package com.mindcanary.infrastructure.challenges;
 
-import java.util.List;
-
 import com.mindcanary.domain.challenge.Challenge;
+
+import java.util.List;
 
 public interface ChallengeDaoService {
 
@@ -15,5 +15,7 @@ public interface ChallengeDaoService {
 	List<String> saveAnswerBank(List<String> answerBankItems);
 
 	List<Challenge> getSentChallenges(String firebaseUuid);
+
+	List<Challenge> getReceivedChallenges(String firebaseUuid);
 
 }
