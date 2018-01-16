@@ -14,25 +14,25 @@ public class ChallengeDomainServieImpl implements ChallengeDomainService {
 
 	@Override
 	public List<Challenge> getAllChallenges() {
-		List<Challenge> challenges = challengeDaoService.getAllChallenges();
+		List<Challenge> challenges = challengeDaoService.getAll();
 		return challenges;
 	}
 
 	@Override
 	public List<Challenge> saveChallenges(List<Challenge> challenges) {
-		List<Challenge> savedChallenges = challengeDaoService.saveChallenges(challenges);
+		List<Challenge> savedChallenges = challengeDaoService.saveAll(challenges);
 		return savedChallenges;
 	}
 
 	@Override
 	public List<Challenge> getSentChallenges(String firebaseUuid) {
-		List<Challenge> challenges = challengeDaoService.getSentChallenges(firebaseUuid);
+		List<Challenge> challenges = challengeDaoService.getSent(firebaseUuid);
 		return challenges;
 	}
 
 	@Override
 	public List<Challenge> getReceivedChallenges(String firebaseUuid) {
-		List<Challenge> challenges = challengeDaoService.getReceivedChallenges(firebaseUuid);
+		List<Challenge> challenges = challengeDaoService.getReceived(firebaseUuid);
 		return challenges;
 	}
 

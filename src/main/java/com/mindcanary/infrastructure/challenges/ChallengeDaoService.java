@@ -6,16 +6,14 @@ import java.util.List;
 
 public interface ChallengeDaoService {
 
-	List<Challenge> getAllChallenges();
+	List<Challenge> getAll();
 
-	List<Challenge> saveChallenges(List<Challenge> challenges);
+	List<Challenge> saveAll(List<Challenge> challenges);
 
-	Challenge saveChallenge(Challenge challenge);
+	Challenge save(Challenge challenge);
 
-	List<String> saveAnswerBank(List<String> answerBankItems);
+	List<Challenge> getSent(String firebaseUuid);
 
-	List<Challenge> getSentChallenges(String firebaseUuid);
-
-	List<Challenge> getReceivedChallenges(String firebaseUuid);
+	List<Challenge> getReceived(String firebaseUuid);
 
 }
