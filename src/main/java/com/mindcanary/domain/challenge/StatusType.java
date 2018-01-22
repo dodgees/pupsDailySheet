@@ -3,13 +3,13 @@ package com.mindcanary.domain.challenge;
 import com.mindcanary.exceptions.EnumerationException;
 
 public enum StatusType {
-	ASKED(1, "Asked"), ANSWERED(2, "Answered");
+	ASKED(1, "Asked"), ANSWERED_CORRECT(2, "Correct"), ANSWERED_INCORRECT(3, "Incorrect");
 
 	private final long id;
 
 	private final String name;
 
-	private StatusType(long id, String name) {
+	StatusType(long id, String name) {
 		this.id = id;
 		this.name = name;
 	}

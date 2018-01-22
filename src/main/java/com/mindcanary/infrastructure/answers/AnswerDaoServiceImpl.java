@@ -1,6 +1,7 @@
 package com.mindcanary.infrastructure.answers;
 
 import com.mindcanary.domain.answer.Answer;
+import com.mindcanary.infrastructure.challenges.ChallengeDaoService;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -18,6 +19,9 @@ public class AnswerDaoServiceImpl implements AnswerDaoService {
 
 	@Inject
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+	@Inject
+	private ChallengeDaoService challengeDaoService;
 
 	@Override
 	public List<Answer> save(long challengeId, List<Answer> answerBank) {
@@ -85,8 +89,8 @@ public class AnswerDaoServiceImpl implements AnswerDaoService {
 	}
 
 	@Override
-	public List<Answer> getByChallengeId(Long challengeId) {
-		List<Answer> answers = getByChallengeId(challengeId, false);
-		return answers;
+	public boolean isCorrect(long challengeId, List<Long> answers) {
+		return false;
 	}
+
 }

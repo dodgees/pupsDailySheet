@@ -17,6 +17,5 @@ public interface AnswerDaoService {
 
 	List<Answer> getByChallengeId(Long challengeId, boolean includeCorrectness);
 
-	List<Answer> getByChallengeId(Long challengeId);
-
+	boolean isCorrect(long challengeId, List<Long> answers);
 }

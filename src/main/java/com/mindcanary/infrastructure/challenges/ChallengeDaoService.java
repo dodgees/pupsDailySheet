@@ -16,4 +16,5 @@ public interface ChallengeDaoService {
 
 	List<Challenge> getReceived(String firebaseUuid);
 
+	List<Challenge> getByIds(List<Long> challengeIds);
 }

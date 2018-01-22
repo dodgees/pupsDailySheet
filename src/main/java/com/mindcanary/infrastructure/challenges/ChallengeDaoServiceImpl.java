@@ -110,6 +110,14 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
         return challenges;
     }
 
+    @Override
+    public List<Challenge> getByIds(List<Long> challengeIds) {
+        MapSqlParameterSource params = new MapSqlParameterSource("id", challengeIds);
+        String sql = "SELECT * FROM challenges WHERE id in (:id)";
+        List<Challenge> challenges = getChallenges(params, sql);
+        return challenges;
+    }
+
     private List<Challenge> getChallenges(MapSqlParameterSource params, String sql) {
         return namedParameterJdbcTemplate.query(sql, params, (rs, rowNum) -> {
             User toUser = userDaoService.getByUuid(rs.getString("to_user_id"));
