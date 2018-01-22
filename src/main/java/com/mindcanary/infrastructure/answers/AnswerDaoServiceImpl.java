@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named
 public class AnswerDaoServiceImpl implements AnswerDaoService {
@@ -89,8 +90,18 @@ public class AnswerDaoServiceImpl implements AnswerDaoService {
 	}
 
 	@Override
-	public boolean isCorrect(long challengeId, List<Long> answers) {
-		return false;
+	public boolean isCorrect(long challengeId, List<Long> userAnswerIds) {
+		List<Answer> userAnswers = new ArrayList<>();
+		for (Long answerId : userAnswerIds) {
+			userAnswers.add(new Answer(answerId));
+		}
+		List<Answer> answers = getByChallengeId(challengeId, true);
+		List<Answer> correctAnswers = answers.stream().filter(answer -> answer.isCorrect()).collect(Collectors.toList());
+		if (correctAnswers.containsAll(userAnswers) && userAnswers.containsAll(correctAnswers)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

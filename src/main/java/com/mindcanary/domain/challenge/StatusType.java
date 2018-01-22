@@ -40,4 +40,12 @@ public enum StatusType {
 		throw new EnumerationException(id, StatusType.class.toString());
 	}
 
+	public static StatusType fromAnswered(boolean correct) {
+		if (correct) {
+			return StatusType.ANSWERED_CORRECT;
+		} else {
+			return StatusType.ANSWERED_INCORRECT;
+		}
+	}
+
 }

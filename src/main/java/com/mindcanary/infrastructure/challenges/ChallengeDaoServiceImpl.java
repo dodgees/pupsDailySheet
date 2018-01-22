@@ -118,6 +118,15 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
         return challenges;
     }
 
+    @Override
+    public void updateStatus(long challengeId, StatusType statusType) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("challengeId", challengeId);
+        params.addValue("statusType", statusType.getName());
+        String sql = "UPDATE challenges SET status_type = :statusType WHERE id=:challengeId";
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
     private List<Challenge> getChallenges(MapSqlParameterSource params, String sql) {
         return namedParameterJdbcTemplate.query(sql, params, (rs, rowNum) -> {
             User toUser = userDaoService.getByUuid(rs.getString("to_user_id"));

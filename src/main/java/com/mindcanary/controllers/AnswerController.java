@@ -21,7 +21,7 @@ public class AnswerController {
 
     @RequestMapping(value = "/submit/{challengeId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    StatusType getSentChallenges(@PathVariable("challengeId") long challengeId, @RequestParam("answerIds") List<Long> answerIds) {
+    StatusType submit(@PathVariable("challengeId") long challengeId, @RequestParam("answerIds") List<Long> answerIds) {
         String firebaseUuid = requestScopedData.getFirebaseToken().getUid();
         StatusType statusType = answerDomainService.submit(firebaseUuid, challengeId, answerIds);
         return statusType;

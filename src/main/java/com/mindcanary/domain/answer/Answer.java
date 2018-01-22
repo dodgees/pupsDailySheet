@@ -1,6 +1,9 @@
 package com.mindcanary.domain.answer;
 
+import java.util.Objects;
+
 public class Answer {
+
 
 	private long id;
 
@@ -9,6 +12,13 @@ public class Answer {
 	private boolean correct;
 
 	private long challengeId;
+
+	public Answer() {
+	}
+
+	public Answer(long id) {
+		this.id = id;
+	}
 
 	public long getId() {
 		return id;
@@ -42,4 +52,20 @@ public class Answer {
 		this.challengeId = challengeId;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (!(obj instanceof Answer)) {
+			return false;
+		}
+
+		Answer answer = (Answer) obj;
+
+		return id == answer.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }
