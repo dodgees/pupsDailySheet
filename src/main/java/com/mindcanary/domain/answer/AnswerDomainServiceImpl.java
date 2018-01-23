@@ -3,6 +3,7 @@ package com.mindcanary.domain.answer;
 import com.mindcanary.domain.challenge.Challenge;
 import com.mindcanary.domain.challenge.StatusType;
 import com.mindcanary.exceptions.AuthorizationException;
+import com.mindcanary.exceptions.ChallengeException;
 import com.mindcanary.infrastructure.answers.AnswerDaoService;
 import com.mindcanary.infrastructure.challenges.ChallengeDaoService;
 
@@ -23,6 +24,10 @@ public class AnswerDomainServiceImpl implements AnswerDomainService {
     @Override
     public StatusType submit(String firebaseUuid, long challengeId, List<Long> answerIds) {
         Challenge challenge = challengeDaoService.getByIds(Arrays.asList(challengeId)).get(0);
+        if (!challenge.getStatusType().equals(StatusType.ASKED)) {
+            throw new ChallengeException(String.format("Challenge %s has already been answered.", challengeId));
+        }
+
         if (!challenge.getToUser().getFirebaseUuid().equals(firebaseUuid)) {
             throw new AuthorizationException();
         } else {
