@@ -8,4 +8,6 @@ public interface AnswerDomainService {
 
     StatusType submit(String firebaseUuid, long challengeId, List<Long> answerIds);
 
+    void updateSubmittedByUser(String firebaseUuid, List<Long> answerIds);
+
 }

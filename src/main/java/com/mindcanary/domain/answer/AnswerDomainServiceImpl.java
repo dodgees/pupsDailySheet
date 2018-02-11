@@ -33,7 +33,13 @@ public class AnswerDomainServiceImpl implements AnswerDomainService {
         } else {
             boolean isCorrect = answerDaoService.isCorrect(challengeId, answerIds);
             challengeDaoService.updateStatus(challengeId, StatusType.fromAnswered(isCorrect));
+            updateSubmittedByUser(firebaseUuid, answerIds);
             return StatusType.fromAnswered(isCorrect);
         }
+    }
+
+    @Override
+    public void updateSubmittedByUser(String firebaseUuid, List<Long> answerIds) {
+        answerDaoService.updateSubmittedByUser(firebaseUuid, answerIds);
     }
 }

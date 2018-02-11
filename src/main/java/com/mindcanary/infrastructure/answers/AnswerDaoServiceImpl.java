@@ -84,6 +84,7 @@ public class AnswerDaoServiceImpl implements AnswerDaoService {
 				answer.setCorrect(rs.getBoolean("correct"));
 			}
 			answer.setValue(rs.getString("value"));
+			answer.setSubmittedByUuid(rs.getString("submitted_by"));
 			return answer;
 		});
 		return answers;
@@ -102,6 +103,24 @@ public class AnswerDaoServiceImpl implements AnswerDaoService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void updateSubmittedByUser(String firebaseUuid, List<Long> answerIds) {
+		for (Long answerId : answerIds) {
+			updateSubmittedByUser(firebaseUuid, answerId);
+		}
+	}
+
+	@Override
+	public void updateSubmittedByUser(String firebaseUuid, long answerId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("firebaseUuid", firebaseUuid);
+		params.addValue("answerId", answerId);
+
+		String sql = "UPDATE answers SET submitted_by=:firebaseUuid WHERE id=:answerId";
+
+		namedParameterJdbcTemplate.update(sql, params);
 	}
 
 }

@@ -18,4 +18,9 @@ public interface AnswerDaoService {
 	List<Answer> getByChallengeId(Long challengeId, boolean includeCorrectness);
 
 	boolean isCorrect(long challengeId, List<Long> answers);
+
+    void updateSubmittedByUser(String firebaseUuid, List<Long> answerIds);
+
+    void updateSubmittedByUser(String firebaseUuid, long answerId);
+
 }

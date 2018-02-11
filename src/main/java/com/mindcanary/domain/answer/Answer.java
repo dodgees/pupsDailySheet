@@ -13,6 +13,8 @@ public class Answer {
 
 	private long challengeId;
 
+	private String submittedByUuid;
+
 	public Answer() {
 	}
 
@@ -50,6 +52,14 @@ public class Answer {
 
 	public void setChallengeId(long challengeId) {
 		this.challengeId = challengeId;
+	}
+
+	public String getSubmittedByUuid() {
+		return submittedByUuid;
+	}
+
+	public void setSubmittedByUuid(String submittedByUuid) {
+		this.submittedByUuid = submittedByUuid;
 	}
 
 	@Override
