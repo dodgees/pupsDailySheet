@@ -17,7 +17,6 @@ public class Challenge {
 
     private LocalDateTime createdDateTime;
 
-    private String title;
 
     private String category;
 
@@ -32,14 +31,13 @@ public class Challenge {
     public Challenge() {
     }
 
-    public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String title, String category,
+    public Challenge(long id, User toUser, User fromUser, LocalDateTime createdDateTime, String category,
                      String question, AnswerType answerType, StatusType statusType, List<Answer> answerBank) {
         super();
         this.id = id;
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.createdDateTime = createdDateTime;
-        this.title = title;
         this.category = category;
         this.question = question;
         this.answerType = answerType;
@@ -47,9 +45,8 @@ public class Challenge {
         this.answerBank = answerBank;
     }
 
-    public Challenge(String title, String category) {
+    public Challenge(String category) {
         super();
-        this.title = title;
         this.category = category;
     }
 
@@ -83,14 +80,6 @@ public class Challenge {
 
     public void setCreatedDateTime(LocalDateTime createdDateTime) {
         this.createdDateTime = createdDateTime;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getCategory() {

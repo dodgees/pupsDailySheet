@@ -44,7 +44,7 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
 
             LocalDateTime createdDateTime = rs.getTimestamp("created_timestamp").toLocalDateTime();
             Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, createdDateTime,
-                    rs.getString("title"), rs.getString("category"), "Awesome Description", AnswerType.MULTIPLE_CHOICE,
+                    rs.getString("category"), "Awesome Description", AnswerType.MULTIPLE_CHOICE,
                     StatusType.ASKED, null);
             return challenge;
         });
@@ -71,14 +71,14 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
         MapSqlParameterSource params = new MapSqlParameterSource("from_user_id",
                 challenge.getFromUser().getFirebaseUuid())
                 .addValue("to_user_id", challenge.getToUser().getFirebaseUuid())
-                .addValue("title", challenge.getTitle()).addValue("question", challenge.getQuestion())
+                .addValue("question", challenge.getQuestion())
                 .addValue("answer_type", challenge.getAnswerType().getName())
                 .addValue("status_type", challenge.getStatusType().getName())
                 .addValue("created_timestamp", Timestamp.valueOf(challenge.getCreatedDateTime()))
                 .addValue("created_by", challenge.getFromUser().getFirebaseUuid())
                 .addValue("category", challenge.getCategory()).addValue("answer", "MAGIC");
-        String sql = "INSERT INTO challenges(from_user_id, to_user_id, title, question, answer_type, status_type, created_timestamp, created_by, category)"
-                + "	VALUES (:from_user_id,:to_user_id,:title, :question, :answer_type, :status_type, :created_timestamp, :created_by, :category );";
+        String sql = "INSERT INTO challenges(from_user_id, to_user_id,  question, answer_type, status_type, created_timestamp, created_by, category)"
+                + "	VALUES (:from_user_id,:to_user_id, :question, :answer_type, :status_type, :created_timestamp, :created_by, :category );";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, params, keyHolder);
         long challengeId = Long.valueOf(keyHolder.getKeys().get("id").toString());
@@ -133,7 +133,7 @@ public class ChallengeDaoServiceImpl implements ChallengeDaoService {
             User fromUser = userDaoService.getByUuid(rs.getString("from_user_id"));
             Timestamp ts = rs.getTimestamp("created_timestamp");
             Challenge challenge = new Challenge(rs.getInt("id"), toUser, fromUser, LocalDateTime.now(),
-                    rs.getString("title"), rs.getString("category"), rs.getString("question"),
+                    rs.getString("category"), rs.getString("question"),
                     AnswerType.fromName(rs.getString("answer_type")), StatusType.fromName(rs.getString("status_type")),
                     null);
             return challenge;
