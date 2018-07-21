@@ -30,15 +30,15 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         String idToken = request.getHeader("Firebase-Auth");
         logger.info("ID Token: " + idToken + " for endpoint:" + request.getRequestURL());
         FirebaseToken decodedToken;
-        try {
-            decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
-            String uid = decodedToken.getUid();
-            logger.info("UID: " + uid);
-            requestScopedData.setFirebaseToken(decodedToken);
+//        try {
+//            decodedToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
+//            String uid = decodedToken.getUid();
+//            logger.info("UID: " + uid);
+//            requestScopedData.setFirebaseToken(decodedToken);
             return true;
-        } catch (InterruptedException | ExecutionException e) {
-            throw new AuthenticationException(e.getMessage());
-        }
+//        } catch (InterruptedException | ExecutionException e) {
+//            throw new AuthenticationException(e.getMessage());
+//        }
     }
 
 }
