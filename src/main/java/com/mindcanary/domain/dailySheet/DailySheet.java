@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="daily_sheet")
+@Table(name = "DailySheetAb")
 public class DailySheet  {
 
     @Id
@@ -12,6 +12,9 @@ public class DailySheet  {
     private Long id;
     private String title;
     private Date date;
+
+    public DailySheet() {
+    }
 
     public DailySheet(String title, Date date) {
         this.title = title;
