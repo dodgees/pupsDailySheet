@@ -47,7 +47,7 @@ public class DatabaseConfig {
 			config.setMaximumPoolSize(Integer.valueOf(env.getProperty("MAX_DB_CONNECTIONS")));
 
 			perryDataSource = new HikariDataSource(config);
-			perryDataSource.setConnectionTestQuery("Select 1 from DUAL");
+			perryDataSource.setConnectionTestQuery("Select 1");
 			return perryDataSource;
 		} else {
 			return perryDataSource;
