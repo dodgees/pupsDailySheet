@@ -13,13 +13,14 @@ import java.text.SimpleDateFormat;
 public class DailySheetServiceImpl implements DailySheetService {
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
     @Inject
     private DailySheetRepository dailySheetRepository;
 
     public DailySheet saveDailySheet(String dailySheetTitle){
         Date date = new Date();
 
-        DailySheet dailySheet = new DailySheet(1L, dailySheetTitle, new Date());
+        DailySheet dailySheet = new DailySheet(dailySheetTitle, new Date());
         DailySheet savedDailySheet = dailySheetRepository.save(dailySheet);
         return savedDailySheet;
     }

@@ -30,6 +30,6 @@ public class DailySheetController {
     public @ResponseBody String createSheet(@PathVariable("sheetTitle") String sheetTitle) {
         DailySheet savedDailySheet = dailySheetService.saveDailySheet(sheetTitle);
         System.out.println("debug");
-        return ":redirect:/dailySheet/" + savedDailySheet.getId();
+        return "redirect:/dailySheet/" + savedDailySheet.getId();
     }
 }
