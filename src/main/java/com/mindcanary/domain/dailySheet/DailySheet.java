@@ -1,6 +1,9 @@
 package com.mindcanary.domain.dailySheet;
 
+import com.mindcanary.domain.activities.Activity;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -11,6 +14,7 @@ public class DailySheet  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private ArrayList<Activity> activities;
     private Date date;
 
     public DailySheet() {
@@ -49,6 +53,22 @@ public class DailySheet  {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public ArrayList<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public boolean addActivity(Activity activity){
+        return this.activities.add(activity);
+    }
+
+    public void removeActivity(Activity activity){
+        this.activities.remove(activity);
     }
 
     @Override

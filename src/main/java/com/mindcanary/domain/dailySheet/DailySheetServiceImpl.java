@@ -24,4 +24,8 @@ public class DailySheetServiceImpl implements DailySheetService {
         DailySheet savedDailySheet = dailySheetRepository.save(dailySheet);
         return savedDailySheet;
     }
+
+    public DailySheet getDailySheet(Long id){
+        return dailySheetRepository.getOne(id);
+    }
 }

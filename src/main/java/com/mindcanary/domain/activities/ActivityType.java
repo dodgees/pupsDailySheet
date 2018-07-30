@@ -3,7 +3,7 @@ package com.mindcanary.domain.activities;
 import com.mindcanary.exceptions.EnumerationException;
 
 public enum ActivityType {
-    MEAL(1, "Meal"), NAP(2, "Nap/Sleep"), BATHRROOM(3, "Bathroom"), MEDICATION(4, "Medication");
+    MEAL(1, "Meal"), NAP(2, "Nap/Sleep"), BATHROOM(3, "Bathroom"), MEDICATION(4, "Medication");
 
     private final long id;
 

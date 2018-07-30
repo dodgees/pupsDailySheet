@@ -21,9 +21,8 @@ public class DailySheetController {
 
     @RequestMapping(value = "/{sheetId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    String getSheet(@PathVariable("sheetId") int sheetId) {
-        String message = "Daily Sheet " + sheetId;
-        return message;
+    DailySheet getSheet(@PathVariable("sheetId") Long sheetId) {
+        return dailySheetService.getDailySheet(sheetId);
     }
 
     @PostMapping(value = "/{sheetTitle}")
